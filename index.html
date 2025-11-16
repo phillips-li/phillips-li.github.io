@@ -5,66 +5,269 @@
   <title>Phillips Li – eLearning Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- Optional: nicer font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
+      --card-bg: rgba(15, 23, 42, 0.9);
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.2);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f8f9fa;
-      color: #222;
       margin: 0;
-      padding: 0;
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
     }
-    .container {
+
+    .card {
+      width: 100%;
       max-width: 720px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      text-align: center;
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 28px 22px 26px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(18px);
     }
+
+    header {
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
     h1 {
-      margin-bottom: 10px;
-      font-size: 28px;
+      font-size: 1.7rem;
+      margin: 10px 0 6px;
     }
-    p.description {
-      color: #555;
-      margin-bottom: 30px;
+
+    .subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      max-width: 34rem;
     }
-    .link-box {
-      background: #ffffff;
-      padding: 18px 22px;
-      margin: 14px 0;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      font-size: 18px;
+
+    .links {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
-    a {
+
+    .link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.9));
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.12s ease;
+    }
+
+    .link-main {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      text-align: left;
+    }
+
+    .link-label {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .link-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      white-space: nowrap;
+    }
+
+    .link-row a.button {
       text-decoration: none;
-      color: #0070f3;
-      font-weight: bold;
+      font-size: 0.83rem;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease, box-shadow 0.12s ease;
     }
-    a:hover {
+
+    .link-row:hover {
+      border-color: var(--accent-soft);
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.12), rgba(15,23,42,0.98));
+      transform: translateY(-1px);
+    }
+
+    .link-row:hover a.button {
+      background: var(--accent);
+      color: #0b1120;
+      box-shadow: 0 8px 18px rgba(56, 189, 248, 0.32);
+      transform: translateY(-0.5px);
+    }
+
+    .arrow {
+      font-size: 0.95rem;
+    }
+
+    footer {
+      margin-top: 22px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
       text-decoration: underline;
+    }
+
+    @media (max-width: 540px) {
+      .card {
+        border-radius: 18px;
+        padding: 20px 16px 18px;
+      }
+      h1 {
+        font-size: 1.4rem;
+      }
+      .link-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .link-row a.button {
+        width: 100%;
+        justify-content: center;
+      }
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>Phillips Li – Portfolio</h1>
-    <p class="description">
-      A small collection of eLearning samples featuring interactive design, visual storytelling, and instructional clarity.
-    </p>
+  <main class="card">
+    <header>
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        ELEARNING SAMPLES
+      </div>
+      <h1>Phillips Li – Portfolio</h1>
+      <p class="subtitle">
+        Interactive modules and demos showcasing scenario-based learning, polished visuals, and clear instructional flow.
+      </p>
+    </header>
 
-    <div class="link-box">
-      <a href="https://phillips-li.github.io/Portfolio_Storyline_Item1/" target="_blank">Storyline eLearning Module - Demo 1o</a>
-    </div>
+    <section class="links">
+      <!-- Module 1 -->
+      <div class="link-row">
+        <div class="link-main">
+          <div class="link-label">
+            Module 1 – Live Demo
+          </div>
+          <div class="link-meta">
+            Creative, visually appealing, and engaging eLearning module demo.
+          </div>
+        </div>
+        <a href="https://phillips-li.github.io/Portfolio_Storyline_Item1/" target="_blank" class="button">
+          <span class="pill">Module</span>
+          <span class="arrow">↗</span>
+        </a>
+      </div>
 
-    <div class="link-box">
-      <a href="https://phillips-li.github.io/Portfolio_Storyline_Item2/" target="_blank">Storyline eLearning Module - Demo 2</a>
-    </div>
+      <!-- Module 2 -->
+      <div class="link-row">
+        <div class="link-main">
+          <div class="link-label">
+            Data-driven module built with custom interactions and creative technical solutions that extend Storyline’s native capabilities.
+          </div>
+          <div class="link-meta">
+            
+          </div>
+        </div>
+        <a href="https://phillips-li.github.io/Portfolio_Storyline_Item2/" target="_blank" class="button">
+          <span class="pill">Module</span>
+          <span class="arrow">↗</span>
+        </a>
+      </div>
 
-    <div class="link-box">
-      <a href="https://www.youtube.com/watch?v=A9najZW_kHw" target="_blank">Vyond - Podcast Animation - Demo</a>
-    </div>
+      <!-- Video -->
+      <div class="link-row">
+        <div class="link-main">
+          <div class="link-label">
+            Vyond Animation
+          </div>
+          <div class="link-meta">
+            Vyond podcast animation built entirely from layered assets to create 3D depth, complete with character dialogue and integrated music.
+          </div>
+        </div>
+        <a href="https://www.youtube.com/watch?v=A9najZW_kHw" target="_blank" class="button">
+          <span class="pill">Video</span>
+          <span class="arrow">▶</span>
+        </a>
+      </div>
+    </section>
 
-  </div>
+    <footer>
+      <span>Contact: <a href="mailto:phillips.li@outlook.com">phillips.li@outlook.com</a></span>
+    </footer>
+  </main>
 </body>
 </html>
