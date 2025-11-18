@@ -12,7 +12,7 @@
 
   <style>
     :root {
-      /* Pastel background like your reference image */
+      /* Background similar to your reference */
       --bg: linear-gradient(
         to bottom,
         #c8d8ff 0%,
@@ -23,11 +23,11 @@
       );
 
       --glass-bg: rgba(255, 255, 255, 0.7);
-      --glass-bg-soft: rgba(255, 255, 255, 0.5);
+      --glass-bg-soft: rgba(255, 255, 255, 0.55);
       --glass-border: rgba(255, 255, 255, 0.9);
       --glass-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
 
-      --text-main: #1f2933;
+      --text-main: #111827;
       --text-muted: #4b5563;
       --text-subtle: #6b7280;
 
@@ -58,7 +58,7 @@
       text-align: center;
     }
 
-    /* Header (outside card) */
+    /* Header (outside bubble) */
 
     .page-header {
       margin-bottom: 18px;
@@ -69,7 +69,7 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--text-subtle);
-      opacity: 0.75;
+      opacity: 0.8;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -90,19 +90,29 @@
       letter-spacing: 0.02em;
     }
 
-    /* Main glass card that expands downward */
+    /* BIG CONTENT BUBBLE (is the button when closed) */
 
     .portfolio-bubble {
       margin: 0 auto;
       max-width: 640px;
-      background: var(--glass-bg-soft);
-      border-radius: 28px;
+
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.95), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(255,225,190,0.9), transparent 55%),
+        var(--glass-bg-soft);
+      background-blend-mode: screen;
+
+      border-radius: 999px; /* pill when closed */
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
       backdrop-filter: blur(26px) saturate(160%);
       -webkit-backdrop-filter: blur(26px) saturate(160%);
-      padding: 12px 16px;
+
+      padding: 12px 22px;
       overflow: hidden;
+      cursor: pointer; /* whole bubble acts as button when closed */
+
+      /* IMPORTANT: no transition on border-radius to avoid weird circle phase */
       transition:
         padding 0.22s ease,
         background 0.22s ease,
@@ -111,54 +121,29 @@
     }
 
     .portfolio-bubble.open {
-      padding: 14px 18px 18px;
+      /* same bubble, just “relaxes” into a rounded rectangle */
+      border-radius: 28px;
+      padding: 16px 20px 18px;
       background: var(--glass-bg);
       box-shadow: 0 28px 60px rgba(15, 23, 42, 0.22);
       transform: translateY(-1px);
+      cursor: default;
     }
 
-    /* Pill header inside the card (toggle button) */
+    /* Top row inside the bubble */
 
     .bubble-header {
-      width: 100%;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 9px 18px;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-
-      background:
-        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.98), transparent 55%),
-        radial-gradient(circle at 100% 100%, rgba(255,225,190,0.9), transparent 55%);
-      box-shadow:
-        0 12px 24px rgba(15, 23, 42, 0.18),
-        0 0 0 0.7px rgba(255, 255, 255, 0.95);
-      color: #2a2a2a;
-
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      font-size: 0.8rem;
-
-      backdrop-filter: blur(24px) saturate(170%);
-      -webkit-backdrop-filter: blur(24px) saturate(170%);
-
-      transition:
-        transform 0.12s ease,
-        box-shadow 0.18s ease;
-    }
-
-    .bubble-header:active {
-      transform: translateY(1px) scale(0.97);
-      box-shadow:
-        0 6px 14px rgba(15, 23, 42, 0.18),
-        0 0 0 0.5px rgba(255, 255, 255, 0.9);
+      pointer-events: none; /* click handled on outer bubble */
     }
 
     .bubble-label {
-      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.8rem;
     }
 
     .bubble-chevron {
@@ -170,6 +155,14 @@
       transform: rotate(-180deg);
     }
 
+    /* Pressed effect when bubble itself is clicked (closed state) */
+    .portfolio-bubble:active:not(.open) {
+      transform: translateY(1px) scale(0.98);
+      box-shadow:
+        0 12px 26px rgba(15, 23, 42, 0.2),
+        0 0 0 0.7px rgba(255, 255, 255, 0.95);
+    }
+
     /* Inner drawer content */
 
     .bubble-inner {
@@ -177,7 +170,7 @@
       max-height: 0;
       opacity: 0;
       transform: translateY(-8px);
-      margin-top: 4px;
+      margin-top: 0;
       border-top: 1px solid rgba(255, 255, 255, 0.85);
       padding-top: 0;
       transition:
@@ -218,7 +211,7 @@
     }
 
     .item-row:hover {
-      background: rgba(255, 255, 255, 0.55); /* subtle highlight only */
+      background: rgba(255, 255, 255, 0.55);
     }
 
     .item-main {
@@ -318,10 +311,10 @@
 
     @media (max-width: 540px) {
       .portfolio-bubble {
-        padding: 10px 10px;
+        padding: 10px 14px;
       }
       .portfolio-bubble.open {
-        padding: 12px 12px 16px;
+        padding: 14px 14px 16px;
       }
       .item-row {
         flex-direction: column;
@@ -344,12 +337,12 @@
       <div class="title-name">Portfolio</div>
     </header>
 
-    <!-- Card with pill header and drawer-style expansion -->
+    <!-- BIG bubble that turns into expanded content -->
     <section class="portfolio-bubble" id="portfolioBubble">
-      <button class="bubble-header" type="button" aria-expanded="false">
+      <div class="bubble-header">
         <span class="bubble-label">Open Portfolio</span>
         <span class="bubble-chevron">⌄</span>
-      </button>
+      </div>
 
       <div class="bubble-inner" id="bubbleInner">
         <div class="items">
@@ -361,7 +354,7 @@
               <div class="item-meta">Creative, visually polished module.</div>
               <div class="tags">
                 <span class="tag">Storyline</span>
-                <span class="tag">Scenario-based</span>
+                <span class="tag">Scenario-Based</span>
               </div>
             </div>
             <a href="https://phillips-li.github.io/Portfolio_Storyline_Item1/" target="_blank" class="item-button">
@@ -376,7 +369,7 @@
               <div class="item-meta">Data-driven module with custom interactions.</div>
               <div class="tags">
                 <span class="tag">Storyline</span>
-                <span class="tag">Data-focused</span>
+                <span class="tag">Data-Focused</span>
               </div>
             </div>
             <a href="https://phillips-li.github.io/Portfolio_Storyline_Item2/" target="_blank" class="item-button">
@@ -425,8 +418,7 @@
 
   <script>
     const bubble = document.getElementById("portfolioBubble");
-    const headerBtn = bubble.querySelector(".bubble-header");
-    const inner = document.getElementById("bubbleInner");
+    const inner  = document.getElementById("bubbleInner");
 
     function setInnerHeight(open) {
       if (open) {
@@ -436,9 +428,12 @@
       }
     }
 
-    headerBtn.addEventListener("click", () => {
+    bubble.addEventListener("click", (e) => {
+      // Don't toggle when clicking item buttons
+      if (e.target.closest(".item-button")) return;
+
       const isOpen = bubble.classList.toggle("open");
-      headerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      bubble.setAttribute("aria-expanded", isOpen ? "true" : "false");
       setInnerHeight(isOpen);
     });
 
