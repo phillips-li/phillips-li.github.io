@@ -12,22 +12,23 @@
 
   <style>
     :root {
-      /* Discord-like palette */
-      --bg-main: #1e1f22;
-      --bg-elevated: #2b2d31;
-      --bg-elevated-soft: #313338;
-      --border-subtle: #1f2124;
+      --bg: radial-gradient(circle at top, #f7f8fc 0, #e7ebf5 40%, #d5dced 75%, #c6d0e4 100%);
+      --glass: rgba(255, 255, 255, 0.32);
+      --glass-soft: rgba(255, 255, 255, 0.18);
+      --border-soft: rgba(255, 255, 255, 0.82);
+      --border-subtle: rgba(140, 150, 170, 0.28);
 
-      --accent: #5865f2;
-      --accent-soft: rgba(88, 101, 242, 0.18);
+      --accent: #007aff; /* iOS blue */
+      --accent-soft: rgba(0, 122, 255, 0.08);
 
-      --text-main: #f2f3f5;
-      --text-muted: #b5bac1;
-      --text-subtle: #949ba4;
+      --text-main: #050814;
+      --text-muted: #626b7d;
+      --text-subtle: #8e95a5;
 
-      --tag-bg: #111214;
-      --tag-border: #2b2d31;
-      --shadow-soft: 0 8px 18px rgba(0, 0, 0, 0.35);
+      --tag-bg: rgba(255, 255, 255, 0.7);
+      --tag-border: rgba(140, 150, 170, 0.28);
+
+      --shadow-soft: 0 20px 45px rgba(15, 23, 42, 0.12);
     }
 
     * {
@@ -37,9 +38,9 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #313338 0, #1e1f22 45%, #111214 100%);
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: var(--bg);
+      background-attachment: fixed;
       color: var(--text-main);
       display: flex;
       align-items: center;
@@ -47,31 +48,32 @@
       padding: 24px 16px;
     }
 
-    .shell {
+    main.shell {
       width: 100%;
-      max-width: 820px;
-      text-align: center;
+      max-width: 720px;
     }
 
     .panel {
-      background: linear-gradient(135deg, var(--bg-elevated-soft), var(--bg-elevated));
-      border-radius: 24px;
-      padding: 36px 26px 24px;
-      border: 1px solid var(--border-subtle);
+      background: var(--glass);
+      border-radius: 28px;
+      padding: 30px 26px 22px;
+      border: 1px solid var(--border-soft);
       box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(30px) saturate(140%);
+      -webkit-backdrop-filter: blur(30px) saturate(140%);
     }
 
     .masthead {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 10px;
+      gap: 8px;
+      margin-bottom: 6px;
     }
 
     .name-tag {
-      font-size: 0.8rem;
-      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--text-subtle);
       display: inline-flex;
@@ -80,29 +82,29 @@
     }
 
     .name-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 999px;
-      background: #23a559; /* online green vibe */
-      box-shadow: 0 0 8px rgba(35, 165, 89, 0.9);
+      background: #30d158; /* subtle "online" green */
     }
 
     .title-name {
-      font-size: 1.9rem;
+      font-size: 2.0rem;
       font-weight: 600;
+      letter-spacing: 0.02em;
     }
 
     .portfolio-toggle {
       margin-top: 10px;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 24px;
+      gap: 8px;
+      padding: 10px 22px;
       border-radius: 999px;
-      border: 1px solid var(--accent-soft);
-      background: rgba(49, 51, 56, 0.85);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      background: rgba(255, 255, 255, 0.7);
       color: var(--text-main);
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 500;
       cursor: pointer;
       transition:
@@ -113,27 +115,27 @@
     }
 
     .portfolio-toggle-label {
-      letter-spacing: 0.08em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      font-size: 0.9rem;
+      font-size: 0.78rem;
     }
 
     .chevron {
-      font-size: 1.1rem;
+      font-size: 1rem;
       transition: transform 0.18s ease;
       transform-origin: center;
     }
 
     .portfolio-toggle:hover {
-      background: rgba(64, 68, 75, 0.95);
-      border-color: var(--accent);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(0, 0, 0, 0.05);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
       transform: translateY(-1px);
     }
 
     .portfolio-toggle:active {
       transform: translateY(0);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.14);
     }
 
     .portfolio-toggle[aria-expanded="true"] .chevron {
@@ -142,28 +144,29 @@
 
     .subtitle {
       margin-top: 14px;
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       color: var(--text-muted);
-      max-width: 32rem;
+      max-width: 28rem;
+      text-align: center;
       margin-left: auto;
       margin-right: auto;
     }
 
     .portfolio-dropdown {
-      margin-top: 20px;
+      margin-top: 18px;
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      transform: translateY(-8px);
+      transform: translateY(-6px);
       transition:
         max-height 0.25s ease,
-        opacity 0.25s ease,
-        transform 0.22s ease;
+        opacity 0.22s ease,
+        transform 0.2s ease;
       pointer-events: none;
     }
 
     .portfolio-dropdown.open {
-      max-height: 900px; /* enough space for items */
+      max-height: 800px;
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
@@ -172,9 +175,8 @@
     .items {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       margin-top: 4px;
-      text-align: left;
     }
 
     .item-row {
@@ -182,21 +184,21 @@
       justify-content: space-between;
       align-items: center;
       gap: 14px;
-      padding: 14px 14px;
-      border-radius: 14px;
-      background: radial-gradient(circle at top left, rgba(88, 101, 242, 0.08), rgba(49, 51, 56, 0.95));
-      border: 1px solid rgba(78, 80, 88, 0.9);
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: var(--glass-soft);
+      border: 1px solid var(--border-subtle);
       transition:
-        background 0.16s ease,
-        border-color 0.16s ease,
-        transform 0.12s ease,
-        box-shadow 0.16s ease;
+        background 0.14s ease,
+        border-color 0.14s ease,
+        transform 0.1s ease,
+        box-shadow 0.14s ease;
     }
 
     .item-main {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
       min-width: 0;
     }
 
@@ -212,7 +214,7 @@
     }
 
     .tags {
-      margin-top: 4px;
+      margin-top: 2px;
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
@@ -237,9 +239,9 @@
       font-weight: 500;
       padding: 7px 14px;
       border-radius: 999px;
-      border: 1px solid var(--accent);
+      border: 1px solid rgba(0, 122, 255, 0.35);
       color: var(--accent);
-      background: transparent;
+      background: rgba(255, 255, 255, 0.7);
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -247,25 +249,23 @@
       transition:
         background 0.15s ease,
         color 0.15s ease,
+        border-color 0.15s ease,
         box-shadow 0.15s ease,
         transform 0.1s ease;
     }
 
     .item-row:hover {
-      border-color: var(--accent);
-      background: radial-gradient(
-        circle at top left,
-        rgba(88, 101, 242, 0.16),
-        rgba(49, 51, 56, 0.98)
-      );
+      border-color: rgba(0, 0, 0, 0.06);
+      background: rgba(255, 255, 255, 0.44);
       transform: translateY(-1px);
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.10);
     }
 
     .item-row:hover a.button {
       background: var(--accent);
       color: #ffffff;
-      box-shadow: 0 10px 25px rgba(88, 101, 242, 0.5);
+      border-color: var(--accent);
+      box-shadow: 0 9px 20px rgba(0, 122, 255, 0.38);
       transform: translateY(-0.5px);
     }
 
@@ -292,12 +292,12 @@
 
     @media (max-width: 540px) {
       .panel {
-        border-radius: 18px;
+        border-radius: 22px;
         padding: 24px 16px 18px;
       }
 
       .title-name {
-        font-size: 1.6rem;
+        font-size: 1.7rem;
       }
 
       .portfolio-toggle {
@@ -310,12 +310,8 @@
         align-items: flex-start;
       }
 
-      .items {
-        margin-top: 8px;
-      }
-
       .subtitle {
-        font-size: 0.85rem;
+        font-size: 0.82rem;
       }
     }
   </style>
@@ -338,18 +334,19 @@
       </header>
 
       <p class="subtitle">
-        Interactive learning experiences, data-informed demos, and animations built with tools like Storyline and Vyond.
+        Selected work across interactive learning, data visualization, and animation.
       </p>
 
       <!-- Dropdown list -->
       <section class="portfolio-dropdown" id="portfolioDropdown">
         <div class="items">
-          <!-- Module 1 -->
+
+          <!-- Item 1: Storyline -->
           <div class="item-row">
             <div class="item-main">
               <div class="item-title">Storyline – Module 1 Live Demo</div>
               <div class="item-meta">
-                Creative, visually polished, and engaging eLearning module demo.
+                Creative, visually polished, and engaging eLearning module.
               </div>
               <div class="tags">
                 <span class="tag">Storyline</span>
@@ -362,12 +359,12 @@
             </a>
           </div>
 
-          <!-- Module 2 -->
+          <!-- Item 2: Storyline -->
           <div class="item-row">
             <div class="item-main">
               <div class="item-title">Storyline – Module 2 Live Demo</div>
               <div class="item-meta">
-                Data-driven module using custom interactions and creative technical solutions that extend Storyline’s native capabilities.
+                Data-driven module with custom interactions extending native Storyline capabilities.
               </div>
               <div class="tags">
                 <span class="tag">Storyline</span>
@@ -380,29 +377,31 @@
             </a>
           </div>
 
-          <!-- Module 3 (optional additional Storyline demo) -->
+          <!-- Item 3: Tableau -->
           <div class="item-row">
             <div class="item-main">
-              <div class="item-title">Storyline – Module 3 Live Demo</div>
+              <div class="item-title">Tableau – Dashboard Demo</div>
               <div class="item-meta">
-                Additional demo showcasing expanded interactions, reusable patterns, and consistent visual design.
+                Interactive dashboard highlighting key metrics and clear visual hierarchy.
               </div>
               <div class="tags">
-                <span class="tag">Storyline</span>
+                <span class="tag">Tableau</span>
+                <span class="tag">Data Visualization</span>
               </div>
             </div>
-            <a href="https://phillips-li.github.io/Portfolio_Storyline_Item3/" target="_blank" class="button">
+            <!-- TODO: update href to your actual Tableau URL if different -->
+            <a href="https://phillips-li.github.io/Portfolio_Tableau_Demo/" target="_blank" class="button">
               <span>Open</span>
               <span class="arrow">↗</span>
             </a>
           </div>
 
-          <!-- Vyond Video -->
+          <!-- Item 4: Vyond -->
           <div class="item-row">
             <div class="item-main">
               <div class="item-title">Vyond – Animated Podcast Demo</div>
               <div class="item-meta">
-                Vyond podcast-style animation built entirely from layered assets to create 3D depth, with character dialogue and integrated music.
+                Layered cartoon sets and characters creating 3D depth, with dialogue and music.
               </div>
               <div class="tags">
                 <span class="tag">Vyond</span>
@@ -414,6 +413,7 @@
               <span class="arrow">▶</span>
             </a>
           </div>
+
         </div>
       </section>
 
