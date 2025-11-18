@@ -12,7 +12,7 @@
 
   <style>
     :root {
-      /* Pastel gradient like your reference */
+      /* Background matching your reference gradient */
       --bg: linear-gradient(
         to bottom,
         #c8d8ff 0%,
@@ -59,6 +59,7 @@
     }
 
     /* Header (outside bubble) */
+
     .page-header {
       margin-bottom: 18px;
     }
@@ -95,23 +96,24 @@
       margin: 0 auto;
       max-width: 640px;
       background: var(--glass-bg-soft);
-      border-radius: 999px;               /* pill when closed */
+      border-radius: 999px; /* pill top */
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
       backdrop-filter: blur(26px) saturate(160%);
       -webkit-backdrop-filter: blur(26px) saturate(160%);
       padding: 10px 14px;
+      overflow: hidden; /* keeps drawer content inside */
       transition:
-        border-radius 0.24s ease,
         padding 0.24s ease,
         background 0.24s ease,
         box-shadow 0.24s ease,
-        transform 0.18s ease;
+        transform 0.18s ease,
+        border-radius 0.24s ease;
     }
 
     .portfolio-bubble.open {
-      border-radius: 24px;                /* morph into rounded rectangle */
-      padding: 14px 16px 16px;
+      border-radius: 999px 999px 28px 28px; /* pill on top, rounded on bottom */
+      padding: 12px 16px 18px;
       background: var(--glass-bg);
       box-shadow: 0 28px 60px rgba(15, 23, 42, 0.22);
       transform: translateY(-1px);
@@ -150,28 +152,33 @@
       transform: rotate(-180deg);
     }
 
-    /* Pressed effect */
     .bubble-header:active {
       transform: translateY(1px) scale(0.98);
     }
 
-    /* Inner content (portfolio items) */
+    /* Inner drawer content */
 
     .bubble-inner {
       overflow: hidden;
       max-height: 0;
       opacity: 0;
-      transform: translateY(-6px);
+      transform: translateY(-8px);
+      margin-top: 4px;
+      border-top: 1px solid rgba(255, 255, 255, 0.9);
+      padding-top: 0;
       transition:
         max-height 0.3s ease,
-        opacity 0.22s ease,
-        transform 0.24s ease;
+        opacity 0.24s ease,
+        transform 0.24s ease,
+        padding-top 0.24s ease,
+        margin-top 0.24s ease;
     }
 
     .portfolio-bubble.open .bubble-inner {
       opacity: 1;
       transform: translateY(0);
       margin-top: 8px;
+      padding-top: 10px;
     }
 
     .items {
@@ -193,6 +200,11 @@
       border: 1px solid rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(18px) saturate(150%);
       -webkit-backdrop-filter: blur(18px) saturate(150%);
+      transition: background 0.15s ease;
+    }
+
+    .item-row:hover {
+      background: rgba(255, 255, 255, 0.55); /* no lift or shadow, just subtle highlight */
     }
 
     .item-main {
@@ -232,7 +244,7 @@
       white-space: nowrap;
     }
 
-    /* Inner buttons (Open / Watch) */
+    /* Portfolio item buttons */
 
     .item-button {
       position: relative;
@@ -295,7 +307,7 @@
         padding: 10px 10px;
       }
       .portfolio-bubble.open {
-        padding: 12px 12px 14px;
+        padding: 12px 12px 16px;
       }
       .item-row {
         flex-direction: column;
@@ -318,7 +330,7 @@
       <div class="title-name">Portfolio</div>
     </header>
 
-    <!-- Expanding glass bubble -->
+    <!-- Expanding glass bubble drawer -->
     <section class="portfolio-bubble" id="portfolioBubble">
       <button class="bubble-header" type="button" aria-expanded="false">
         <span class="bubble-label">Open Portfolio</span>
@@ -416,7 +428,6 @@
       setInnerHeight(isOpen);
     });
 
-    // Keep height correct on resize while open
     window.addEventListener("resize", () => {
       if (bubble.classList.contains("open")) {
         setInnerHeight(true);
