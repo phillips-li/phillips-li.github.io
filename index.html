@@ -12,23 +12,32 @@
 
   <style>
     :root {
-      /* Darker, less “neon” blue background */
-      --bg: radial-gradient(circle at 20% 0%, #3a7de0 0, #22418f 40%, #071020 75%, #020509 100%);
-      /* Much lighter, neutral glass for the main panel */
+      /* ✨ EARTHY PASTEL BACKGROUND */
+      --bg: radial-gradient(
+        circle at 20% 0%,
+        #f9e9d2 0%,
+        #eddcc0 25%,
+        #e2d4c2 50%,
+        #d1c7ba 75%,
+        #c7beb3 100%
+      );
+
+      /* Glass + UI variables */
       --glass: rgba(255, 255, 255, 0.14);
       --glass-soft: rgba(255, 255, 255, 0.10);
       --border-soft: rgba(255, 255, 255, 0.75);
-      --border-subtle: rgba(160, 175, 210, 0.35);
-
+      --border-subtle: rgba(140, 150, 170, 0.30);
+      
       --accent: #007aff;
-      --text-main: #f9fbff;
-      --text-muted: #c9d1ff;
-      --text-subtle: #e0e5ff;
 
-      --tag-bg: rgba(255, 255, 255, 0.80);
-      --tag-border: rgba(160, 175, 210, 0.40);
+      --text-main: #2c2c2c;
+      --text-muted: #6b6f72;
+      --text-subtle: #7c8084;
 
-      --shadow-soft: 0 18px 42px rgba(0, 0, 0, 0.55);
+      --tag-bg: rgba(255, 255, 255, 0.85);
+      --tag-border: rgba(160, 175, 210, 0.35);
+
+      --shadow-soft: 0 18px 42px rgba(0, 0, 0, 0.2);
     }
 
     * {
@@ -53,6 +62,7 @@
       max-width: 720px;
     }
 
+    /* Panel Overlay (glass container) */
     .panel {
       background: var(--glass);
       border-radius: 28px;
@@ -63,8 +73,7 @@
       -webkit-backdrop-filter: blur(26px) saturate(150%);
     }
 
-    /* Header – centered */
-
+    /* Center Header */
     .masthead {
       display: flex;
       flex-direction: column;
@@ -77,7 +86,7 @@
 
     .name-tag {
       font-size: 0.72rem;
-      opacity: 0.75;
+      opacity: 0.7;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       display: inline-flex;
@@ -91,18 +100,16 @@
       height: 6px;
       border-radius: 999px;
       background: #34c759;
-      box-shadow: 0 0 8px rgba(52, 199, 89, 0.9);
+      box-shadow: 0 0 6px rgba(52, 199, 89, 0.8);
     }
 
     .title-name {
-      font-size: 1.8rem;
+      font-size: 1.75rem;
       font-weight: 600;
-      letter-spacing: 0.01em;
-      margin-top: 2px;
+      color: #1f1f1f;
     }
 
-    /* iOS “bubble” toggle */
-
+    /* Main bubble (open portfolio) */
     .portfolio-toggle {
       position: relative;
       margin-top: 16px;
@@ -111,31 +118,32 @@
       gap: 8px;
       padding: 12px 28px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+
+      /* Bubble gradient */
       background:
-        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.95), transparent 55%),
-        radial-gradient(circle at 0% 100%, rgba(255, 122, 180, 0.95), transparent 55%),
-        radial-gradient(circle at 100% 0%, rgba(80, 200, 255, 1), transparent 55%),
-        radial-gradient(circle at 100% 100%, rgba(255, 190, 120, 1), transparent 55%);
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.95), transparent 55%),
+        radial-gradient(circle at 0% 100%, rgba(255,172,120,0.85), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(255,210,160,0.9), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(255,230,180,0.9), transparent 55%);
       background-blend-mode: screen;
-      color: #ffffff;
+
+      color: #333;
       font-size: 0.86rem;
       font-weight: 500;
-      cursor: pointer;
-      letter-spacing: 0.14em;
       text-transform: uppercase;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+
       box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.40),
-        0 0 0 0.5px rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(30px) saturate(180%);
-      -webkit-backdrop-filter: blur(30px) saturate(180%);
+        0 18px 32px rgba(0,0,0,0.15),
+        0 0 0 0.5px rgba(255,255,255,0.85);
+
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
       overflow: hidden;
-      border-width: 1px;
-      transition:
-        transform 0.12s ease,
-        box-shadow 0.18s ease,
-        border-color 0.18s ease,
-        background 0.18s ease;
+
+      transition: transform .12s ease, box-shadow .18s ease;
     }
 
     .portfolio-toggle::before {
@@ -143,29 +151,9 @@
       position: absolute;
       inset: 2px;
       border-radius: inherit;
-      background: radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.55), transparent 60%);
-      opacity: 0.8;
+      background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.55), transparent 60%);
+      opacity: .75;
       pointer-events: none;
-    }
-
-    .portfolio-toggle > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .portfolio-toggle:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 22px 50px rgba(0, 0, 0, 0.45),
-        0 0 0 0.5px rgba(255, 255, 255, 0.9);
-      border-color: rgba(255, 255, 255, 1);
-    }
-
-    .portfolio-toggle:active {
-      transform: translateY(0);
-      box-shadow:
-        0 10px 26px rgba(0, 0, 0, 0.35),
-        0 0 0 0.5px rgba(255, 255, 255, 0.8);
     }
 
     .portfolio-toggle-label {
@@ -174,7 +162,7 @@
 
     .chevron {
       font-size: 1rem;
-      transition: transform 0.18s ease;
+      transition: transform .18s ease;
     }
 
     .portfolio-toggle[aria-expanded="true"] .chevron {
@@ -182,17 +170,13 @@
     }
 
     /* Dropdown */
-
     .portfolio-dropdown {
       margin-top: 18px;
       max-height: 0;
-      overflow: hidden;
       opacity: 0;
+      overflow: hidden;
       transform: translateY(-6px);
-      transition:
-        max-height 0.25s ease,
-        opacity 0.22s ease,
-        transform 0.2s ease;
+      transition: max-height .25s ease, opacity .22s ease, transform .2s ease;
       pointer-events: none;
     }
 
@@ -204,60 +188,47 @@
     }
 
     /* Items */
-
     .items {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin-top: 4px;
+      gap: 10px;
     }
 
     .item-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
-      padding: 12px 14px;
+      padding: 14px;
       border-radius: 18px;
-      background: var(--glass-soft);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-main);
-      transition:
-        background 0.14s ease,
-        border-color 0.14s ease,
-        transform 0.1s ease,
-        box-shadow 0.14s ease;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255,255,255,0.55);
+      backdrop-filter: blur(14px) saturate(130%);
+      -webkit-backdrop-filter: blur(14px) saturate(130%);
+      transition: background .15s ease, transform .12s ease, box-shadow .15s ease;
     }
 
     .item-row:hover {
-      border-color: rgba(210, 220, 255, 0.9);
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.20);
       transform: translateY(-1px);
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
-    }
-
-    .item-main {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
     }
 
     .item-title {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #f9fbff;
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: #202020;
     }
 
     .item-meta {
       font-size: 0.8rem;
-      color: var(--text-muted);
+      color: #555;
     }
 
     .tags {
+      margin-top: 4px;
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
-      margin-top: 2px;
     }
 
     .tag {
@@ -268,105 +239,58 @@
       border-radius: 999px;
       border: 1px solid var(--tag-border);
       background: var(--tag-bg);
-      color: #4a4f6a;
-      white-space: nowrap;
+      color: #4b4f54;
     }
 
-    /* Mini bubble buttons for Open / Watch */
-
+    /* Mini bubble button */
     .button {
       position: relative;
       text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 500;
       padding: 7px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.85);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #333;
       background:
-        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.98), transparent 55%),
-        radial-gradient(circle at 100% 100%, rgba(180, 210, 255, 0.9), transparent 55%);
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.95), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(240,225,200,0.8), transparent 55%);
       background-blend-mode: screen;
-      color: #111827;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.85);
+
       box-shadow:
-        0 10px 20px rgba(0, 0, 0, 0.35),
-        0 0 0 0.4px rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(20px) saturate(170%);
-      -webkit-backdrop-filter: blur(20px) saturate(170%);
-      transition:
-        background 0.15s ease,
-        color 0.15s ease,
-        border-color 0.15s ease,
-        box-shadow 0.15s ease,
-        transform 0.1s ease;
+        0 8px 18px rgba(0,0,0,0.18),
+        0 0 0 0.5px rgba(255,255,255,0.75);
+
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+
+      transition: transform .12s ease, box-shadow .15s ease;
     }
 
-    .button::before {
-      content: "";
-      position: absolute;
-      inset: 2px;
-      border-radius: inherit;
-      background: radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.65), transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .button span {
-      position: relative;
-      z-index: 1;
-    }
-
-    .item-row:hover .button {
-      transform: translateY(-0.5px);
-      box-shadow:
-        0 14px 26px rgba(0, 0, 0, 0.4),
-        0 0 0 0.5px rgba(255, 255, 255, 1);
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.22);
     }
 
     footer {
       margin-top: 18px;
       text-align: center;
       font-size: 0.78rem;
-      color: rgba(230, 235, 255, 0.85);
+      color: #444;
     }
 
     footer a {
-      color: #e5edff;
+      color: #333;
       text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 540px) {
-      .panel {
-        border-radius: 22px;
-        padding: 24px 16px 18px;
-      }
-
-      .title-name {
-        font-size: 1.6rem;
-      }
-
-      .portfolio-toggle {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .item-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
     }
   </style>
 </head>
+
 <body>
   <main class="shell">
     <section class="panel">
+
+      <!-- HEADER -->
       <header class="masthead">
         <div class="name-tag">
           <span class="name-dot"></span>
@@ -380,10 +304,11 @@
         </button>
       </header>
 
+      <!-- DROPDOWN -->
       <section class="portfolio-dropdown" id="portfolioDropdown">
         <div class="items">
 
-          <!-- Item 1: Storyline -->
+          <!-- Item 1 -->
           <div class="item-row">
             <div class="item-main">
               <div class="item-title">Storyline – Module 1 Live Demo</div>
@@ -394,26 +319,26 @@
               </div>
             </div>
             <a href="https://phillips-li.github.io/Portfolio_Storyline_Item1/" target="_blank" class="button">
-              <span>Open ↗</span>
+              Open ↗
             </a>
           </div>
 
-          <!-- Item 2: Storyline -->
+          <!-- Item 2 -->
           <div class="item-row">
             <div class="item-main">
               <div class="item-title">Storyline – Module 2 Live Demo</div>
               <div class="item-meta">Data-driven module with custom interactions.</div>
               <div class="tags">
                 <span class="tag">Storyline</span>
-                <span class="tag">Data-focused</span>
+                <span class="tag">Data-Focused</span>
               </div>
             </div>
             <a href="https://phillips-li.github.io/Portfolio_Storyline_Item2/" target="_blank" class="button">
-              <span>Open ↗</span>
+              Open ↗
             </a>
           </div>
 
-          <!-- Item 3: Tableau -->
+          <!-- Item 3 -->
           <div class="item-row">
             <div class="item-main">
               <div class="item-title">Tableau – Dashboard Demo</div>
@@ -424,22 +349,22 @@
               </div>
             </div>
             <a href="https://phillips-li.github.io/Portfolio_Tableau_Demo/" target="_blank" class="button">
-              <span>Open ↗</span>
+              Open ↗
             </a>
           </div>
 
-          <!-- Item 4: Vyond -->
+          <!-- Item 4 -->
           <div class="item-row">
             <div class="item-main">
               <div class="item-title">Vyond – Animated Podcast Demo</div>
-              <div class="item-meta">Layered assets, 3D depth, dialogue &amp; music.</div>
+              <div class="item-meta">Layered assets, 3D depth, dialogue & music.</div>
               <div class="tags">
                 <span class="tag">Vyond</span>
                 <span class="tag">Animation</span>
               </div>
             </div>
             <a href="https://youtu.be/A9najZW_kHw" target="_blank" class="button">
-              <span>Watch ▶</span>
+              Watch ▶
             </a>
           </div>
 
@@ -449,6 +374,7 @@
       <footer>
         Contact: <a href="mailto:phillips.li@outlook.com">phillips.li@outlook.com</a>
       </footer>
+
     </section>
   </main>
 
