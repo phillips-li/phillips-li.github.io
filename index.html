@@ -12,7 +12,7 @@
 
   <style>
     :root {
-      /* Background matching your reference gradient */
+      /* Pastel background like your reference image */
       --bg: linear-gradient(
         to bottom,
         #c8d8ff 0%,
@@ -22,8 +22,8 @@
         #c9eef0 100%
       );
 
-      --glass-bg: rgba(255, 255, 255, 0.6);
-      --glass-bg-soft: rgba(255, 255, 255, 0.4);
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-bg-soft: rgba(255, 255, 255, 0.5);
       --glass-border: rgba(255, 255, 255, 0.9);
       --glass-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
 
@@ -58,7 +58,7 @@
       text-align: center;
     }
 
-    /* Header (outside bubble) */
+    /* Header (outside card) */
 
     .page-header {
       margin-bottom: 18px;
@@ -90,70 +90,84 @@
       letter-spacing: 0.02em;
     }
 
-    /* Expanding glass bubble */
+    /* Main glass card that expands downward */
 
     .portfolio-bubble {
       margin: 0 auto;
       max-width: 640px;
       background: var(--glass-bg-soft);
-      border-radius: 999px; /* pill top */
+      border-radius: 28px;
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
       backdrop-filter: blur(26px) saturate(160%);
       -webkit-backdrop-filter: blur(26px) saturate(160%);
-      padding: 10px 14px;
-      overflow: hidden; /* keeps drawer content inside */
+      padding: 12px 16px;
+      overflow: hidden;
       transition:
-        padding 0.24s ease,
-        background 0.24s ease,
-        box-shadow 0.24s ease,
-        transform 0.18s ease,
-        border-radius 0.24s ease;
+        padding 0.22s ease,
+        background 0.22s ease,
+        box-shadow 0.22s ease,
+        transform 0.16s ease;
     }
 
     .portfolio-bubble.open {
-      border-radius: 999px 999px 28px 28px; /* pill on top, rounded on bottom */
-      padding: 12px 16px 18px;
+      padding: 14px 18px 18px;
       background: var(--glass-bg);
       box-shadow: 0 28px 60px rgba(15, 23, 42, 0.22);
       transform: translateY(-1px);
     }
 
-    /* Bubble header (acts as the toggle button) */
+    /* Pill header inside the card (toggle button) */
 
     .bubble-header {
       width: 100%;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       gap: 10px;
-      padding: 8px 10px;
+      padding: 9px 18px;
       border: none;
-      background: transparent;
-      color: var(--text-main);
-      cursor: pointer;
       border-radius: 999px;
-      position: relative;
-      z-index: 2;
+      cursor: pointer;
+
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255,255,255,0.98), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(255,225,190,0.9), transparent 55%);
+      box-shadow:
+        0 12px 24px rgba(15, 23, 42, 0.18),
+        0 0 0 0.7px rgba(255, 255, 255, 0.95);
+      color: #2a2a2a;
+
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.8rem;
+
+      backdrop-filter: blur(24px) saturate(170%);
+      -webkit-backdrop-filter: blur(24px) saturate(170%);
+
+      transition:
+        transform 0.12s ease,
+        box-shadow 0.18s ease;
+    }
+
+    .bubble-header:active {
+      transform: translateY(1px) scale(0.97);
+      box-shadow:
+        0 6px 14px rgba(15, 23, 42, 0.18),
+        0 0 0 0.5px rgba(255, 255, 255, 0.9);
     }
 
     .bubble-label {
-      font-size: 0.82rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
+      font-size: 0.78rem;
     }
 
     .bubble-chevron {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       transition: transform 0.22s ease;
     }
 
     .portfolio-bubble.open .bubble-chevron {
       transform: rotate(-180deg);
-    }
-
-    .bubble-header:active {
-      transform: translateY(1px) scale(0.98);
     }
 
     /* Inner drawer content */
@@ -164,10 +178,10 @@
       opacity: 0;
       transform: translateY(-8px);
       margin-top: 4px;
-      border-top: 1px solid rgba(255, 255, 255, 0.9);
+      border-top: 1px solid rgba(255, 255, 255, 0.85);
       padding-top: 0;
       transition:
-        max-height 0.3s ease,
+        max-height 0.32s ease,
         opacity 0.24s ease,
         transform 0.24s ease,
         padding-top 0.24s ease,
@@ -177,7 +191,7 @@
     .portfolio-bubble.open .bubble-inner {
       opacity: 1;
       transform: translateY(0);
-      margin-top: 8px;
+      margin-top: 10px;
       padding-top: 10px;
     }
 
@@ -204,7 +218,7 @@
     }
 
     .item-row:hover {
-      background: rgba(255, 255, 255, 0.55); /* no lift or shadow, just subtle highlight */
+      background: rgba(255, 255, 255, 0.55); /* subtle highlight only */
     }
 
     .item-main {
@@ -330,7 +344,7 @@
       <div class="title-name">Portfolio</div>
     </header>
 
-    <!-- Expanding glass bubble drawer -->
+    <!-- Card with pill header and drawer-style expansion -->
     <section class="portfolio-bubble" id="portfolioBubble">
       <button class="bubble-header" type="button" aria-expanded="false">
         <span class="bubble-label">Open Portfolio</span>
