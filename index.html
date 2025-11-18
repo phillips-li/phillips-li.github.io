@@ -58,18 +58,19 @@
       text-align: center;
     }
 
-    /* Header (outside bubble) */
+    /* Minimal header */
 
     .page-header {
-      margin-bottom: 18px;
+      margin-top: -8px;
+      margin-bottom: 10px;
     }
 
     .name-tag {
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--text-subtle);
-      opacity: 0.8;
+      opacity: 0.55;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -81,13 +82,6 @@
       border-radius: 999px;
       background: #34c759;
       box-shadow: 0 0 6px rgba(52, 199, 89, 0.85);
-    }
-
-    .title-name {
-      margin-top: 6px;
-      font-size: 1.8rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
     }
 
     /* BIG CONTENT BUBBLE (is the button when closed) */
@@ -112,7 +106,6 @@
       overflow: hidden;
       cursor: pointer; /* whole bubble acts as button when closed */
 
-      /* IMPORTANT: no transition on border-radius to avoid weird circle phase */
       transition:
         padding 0.22s ease,
         background 0.22s ease,
@@ -121,7 +114,6 @@
     }
 
     .portfolio-bubble.open {
-      /* same bubble, just “relaxes” into a rounded rectangle */
       border-radius: 28px;
       padding: 16px 20px 18px;
       background: var(--glass-bg);
@@ -155,7 +147,8 @@
       transform: rotate(-180deg);
     }
 
-    /* Pressed effect when bubble itself is clicked (closed state) */
+    /* Pressed effect when bubble is clicked (closed state) */
+
     .portfolio-bubble:active:not(.open) {
       transform: translateY(1px) scale(0.98);
       box-shadow:
@@ -334,7 +327,6 @@
         <span class="name-dot"></span>
         Phillips Li
       </div>
-      <div class="title-name">Portfolio</div>
     </header>
 
     <!-- BIG bubble that turns into expanded content -->
